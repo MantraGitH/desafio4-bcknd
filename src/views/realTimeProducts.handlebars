@@ -1,0 +1,18 @@
+<h1>Lista de productos actualizados con websockets</h1>
+<div>
+    <div>
+            <ul>
+                {{#each products}}
+                    <li>
+                        <strong>Titulo: </strong>{{this.title}}<br>
+                        <strong>Price: </strong>{{this.price}}<br>
+                        <strong>Description: </strong>{{this.description}}<br>
+                        <strong>Category: </strong>{{this.category}}<br>
+                    </li>
+                {{/each}}
+            </ul>
+    </div>
+</div>
+
+<script src="/socket.io/socket.io.js" charset="utf-8"></script>
+<script src="../public/index.js" charset="utf-8"></script>
