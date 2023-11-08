@@ -1,8 +1,14 @@
 const socket = io();
 
+let user = null;
+
 const price = document.getElementById("price");
-const output = document.getElementById("output");
-const actions = document.getElementById("actions");
+const title = document.getElementById("title");
+const description = document.getElementById("description");
+const category = document.getElementById("category");
+const idProduct = document.getElementById("idProduct");
+const btnCargar = document.getElementById("cargar");
+const btnEliminar = document.getElementById("eliminar");
 
 socket.on("products", (data) => {
   actions.innerHTML = "";
