@@ -1,50 +1,13 @@
-<div>
-    <h1>Lista de productos actualizados</h1>
-    <div>
-        <h2>Form para cargar productos</h2>
-        <form action="/submit" method="post">
-            <div>
-                <label for="Title"><strong>Titulo: </strong></label>
-                <input type="text" id="title" name="title"><br>
-                <label for="Price"><strong>Price: </strong></label>
-                <input type="number" id="price" name="price"><br>
-                <label for="Description"><strong>Description: </strong></label>
-                <input type="text" id="description" name="description"><br>
-                <label for="Category"><strong>Category: </strong></label>
-                <input type="text" id="category" name="category"><br>
-                <button type="submit" id="cargar">Cargar</button>
-            </div>
-        </form>
-    </div>
-        <div>
-        <h2>Form para eliminar productos</h2>
-        <form action="/submit" method="post">
-            <div>
-                <label for="Id"><strong>Id: </strong></label>
-                <input type="number" id="idProduct" name="idProduct"><br>
-                <button type="submit" id="eliminar">Eliminar</button>
-            </div>
-        </form>
-    </div>
-    <h2>Lista post formulario:</h2>
-    <div>
-        <div id="containerList">
-                <ul>
-                    {{#each products}}
-                        <li>
-                            <strong>Titulo: </strong>{{this.title}}<br>
-                            <strong>PricePrice: </strong>{{this.price}}<br>
-                            <strong>Description: </strong>{{this.description}}<br>
-                            <strong>Category: </strong>{{this.category}}<br>
-                        </li>
-                    {{/each}}
-                </ul>
-        </div>
-    </div>
-</div>
+{{log "refresh en tiempo real"}}
+<h2>Listado de productos en tiempo real</h2>
+{{log products}}
+{{#if products.length}}
+  {{#each products}}
+    <h3>{{this.title}}</h3>
+  {{/each}}
+{{else}}
+  <h3>sin productos</h3>
+{{/if}}
 
-
-
-<script src="/socket.io/socket.io.js" charset="utf-8"></script>
-<script src="index.js" charset="utf-8"></script>
-
+<script src="/socket.io/socket.io.js"></script>
+<script src="js/index.js"></script>

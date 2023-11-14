@@ -1,15 +1,9 @@
-    <h1>Lista de productos cargados</h1>
-<div>
-    <div>
-            <ul>
-                {{#each products}}
-                    <li>
-                        <strong>Titulo: </strong>{{this.title}}<br>
-                        <strong>PricePrice: </strong>{{this.price}}<br>
-                        <strong>Description: </strong>{{this.description}}<br>
-                        <strong>Category: </strong>{{this.category}}<br>
-                    </li>
-                {{/each}}
-            </ul>
-    </div>
-</div>
+<h2>Listado de productos</h2>
+
+{{#if products.length}}
+  {{#each products}}
+    <h3>{{this.title}}</h3>
+  {{/each}}
+{{else}}
+  <h3>No hay productos</h3>
+{{/if}}

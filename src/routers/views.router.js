@@ -1,26 +1,37 @@
 import { Router } from "express";
+import { ProductManager } from "../managers/ProductManager.js";
+import { ioServer } from "../server.js";
+
 const router = Router();
-import fs from "fs";
+const productManager = new ProductManager("../data/products.json");
 
-async function loadProducts() {
+router.get("/index", async (req, res) => {
   try {
-    const productsData = await fs.promises.readFile(
-      "./src/data/products.json",
-      "utf-8"
-    );
-    const productsJSON = JSON.parse(productsData);
-    return productsJSON;
+    const products = await productManager.getProducts();
+    res.render("home", { products });
   } catch (error) {
-    throw new Error(`Error al cargar productos: ${error.message}`);
+    res.status(500).json({ error: error.message });
   }
-}
-const products = await loadProducts();
-
-router.get("/home", async (req, res) => {
-  //console.log
-  res.render("home", { products: products });
 });
 
-router.get("/realtimeproducts", (req, res) => {
-  res.render("realTimeProducts", { products: products });
+router.get("/realtimeproducts", async (req, res) => {
+  try {
+    const products = await productManager.getProducts();
+    res.render("realTimeProducts", { products });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
+
+router.post("/realtimeproducts", async (req, res) => {
+  try {
+    const product = req.body;
+    await productManager.addProduct(product);
+    ioServer.emit("newProduct", product);
+    const products = await productManager.getProducts();
+    res.render("realTimeProducts", { products });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+export default router;
